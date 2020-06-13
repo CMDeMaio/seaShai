@@ -47,11 +47,47 @@ appetizers = """<h3>Grilled</h3>
             D7 Edamame 4.00
     </div>
 """
-
+## Preliminary lists
+# Overarching app list, empty list for menu items
 appList = appetizers.split("\n")
+menuItems = []
 
+## Final lists
+# Item numbers, items, headers, prices
+itemNumbers = []
+finalMenuItems = []
+headers = []
+prices = []
+
+# Get all the items for appetizers
 for x in appList:
     if "<h3>" in x:
-        pass
+        headers.append(x.strip()[4:-5])
     else:
-        print(x)
+        menuItems.append(x.strip())
+
+# Split each string up on spaces and assign accordingly
+for item in menuItems:
+    splitString = item.split(" ")
+    # print(splitString)
+    itemNumbers.append(splitString[0])
+    prices.append(splitString[-1])
+    finalMenuItems.append(" ".join(splitString[1:-1]))
+
+print(finalMenuItems)
+print()
+print(headers)
+print()
+print(prices)
+print()
+
+# Wrap headers in description header tag
+for header in headers:
+    print("<div class='card-header'>" + "<span><strong>" +
+          header + "</strong></span>" + "</div>")
+
+print() 
+
+# Wrap menu items in description data tag
+for x in range(0, len(finalMenuItems)):
+    print("<li class='list-group-item list-group-item-action'>" + finalMenuItems[x] + " <span class='price float-right'>" + "$" + prices[x] + "</span>" + "</li>")
